@@ -4,18 +4,26 @@
     {
         function makeChange($input)
         {
-            $coinValue = array(1);
-            $coinName = array('penny');
+            $coinValue = array(5, 1);
+            $coinName = array('nickel', 'penny');
             $change = array();
-
+            $inputValue = $input;
+            $changeName = "";
+            $coinNum = 1;
             $i = 0;
+            
             foreach ($coinValue as $coin) {
-                if ($input % $coin >= 0)
+                while ($inputValue >= $coin) {
+                    $changeName = $coinNum . " " . $coinName[$i];
+                    $inputValue -= $coin;
+                    $coinNum++;
+                }
+                if ($changeName != "")
                 {
-                    $changeName = $coin . " " . $coinName[$i];
                     array_push($change, $changeName);
                 }
                 $i++;
+                $coinNum = 1;
             }
             return $change;
 
